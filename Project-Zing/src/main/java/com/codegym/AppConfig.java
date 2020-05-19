@@ -47,49 +47,13 @@ import java.util.Properties;
 @EnableSpringDataWebSupport
 @ComponentScan("com.codegym")
 @EnableJpaRepositories("com.codegym.repository")
-public class ApplicationConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
-
-
-//    @Override
-//    public void addFormatters(FormatterRegistry registry) {
-//        registry.addFormatter(new TypeFormatter(applicationContext.getBean(TypeService.class,RoleService.class)));
-//    }
-
-
-
-
-    //Thymeleaf Configuration
-    @Bean
-    public SpringResourceTemplateResolver templateResolver(){
-        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/views/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode(TemplateMode.HTML);
-        return templateResolver;
-    }
-
-    @Bean
-    public TemplateEngine templateEngine(){
-        TemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.addDialect(new SpringSecurityDialect());
-        return templateEngine;
-    }
-
-    @Bean
-    public ThymeleafViewResolver viewResolver(){
-        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine(templateEngine());
-        return viewResolver;
-    }
-    //JPA configuration
 
     @Bean
     @Qualifier(value = "entityManager")
@@ -140,32 +104,13 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         return messageSource;
     }
 
-//    @Bean
-//    public ProductService productService(){
-//        return new ProductServiceImpl();
-//    }
-//
-//    @Bean
-//    public TypeService typeService(){
-//        return new TypeServiceImpl();
-//    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/templates/**").addResourceLocations("/templates/");
-    }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
         interceptor.setParamName("lang");
         registry.addInterceptor(interceptor);
     }
-//
-//    @Bean
-//    public UserService userService(){
-//        return new UserServiceImpl();
-//    }
+
 
     @Bean
     public SongService songService(){
