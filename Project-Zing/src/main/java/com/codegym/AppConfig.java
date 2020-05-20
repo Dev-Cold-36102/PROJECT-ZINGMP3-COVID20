@@ -6,6 +6,7 @@ import com.codegym.service.*;
 import com.codegym.service.SongService;
 import com.codegym.service.SongServiceImpl;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -13,7 +14,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
@@ -24,6 +27,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -40,17 +44,22 @@ import org.thymeleaf.templatemode.TemplateMode;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableSpringDataWebSupport
+@PropertySource("classpath:global_config_app.properties")
 @ComponentScan("com.codegym")
 @EnableJpaRepositories("com.codegym.repository")
 public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
-    private ApplicationContext applicationContext;
+    ApplicationContext applicationContext;
+
+    @Autowired
+    Environment environment;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -132,6 +141,23 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Bean
     public Role roleAdmin(){
         return new Role(2L,"ROLE_ADMIN");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String fileUpload = environment.getProperty("file_upload").toString();
+
+        registry.addResourceHandler("/i/**")
+                .addResourceLocations("file:" + fileUpload);
+    }
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getResolver() throws IOException {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setMaxUploadSize(5242880);
+
+        return resolver;
+
     }
 
 }
