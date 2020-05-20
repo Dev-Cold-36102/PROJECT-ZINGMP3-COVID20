@@ -1,6 +1,8 @@
 package com.codegym.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -9,20 +11,42 @@ public class Song  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idSong;
+    private Long idSong;
+
+    @NotEmpty
+    @Size(min = 2, max = 30)
     private String nameSong;
+    @NotEmpty
     private String infoSong;
+    @NotEmpty
     private String imageSong;
-    public String dateSong;
-    private String likeSong;
-    private String listenSong;
-    private String downloadSong;
+    @NotEmpty
+    public Date dateSong;
+    @NotEmpty
+    private Long likeSong;
+    @NotEmpty
+    private Long listenSong;
+    @NotEmpty
+    private Long downloadSong;
+    @NotEmpty
     private String commendSong;
+    @NotEmpty
+    private String category;
+    @NotEmpty
+    private String author;
+
+    @ManyToOne
+    @JoinColumn(name = "idSinger")
+    private Singer singer;
+
+    @ManyToOne
+    @JoinColumn(name = "idAlbum")
+    private Album album;
 
     public Song() {
     }
 
-    public Song(int idSong, String nameSong, String infoSong, String imageSong, String dateSong, String likeSong, String listenSong, String downloadSong, String commendSong) {
+    public Song(Long idSong, String nameSong, String infoSong, String imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong,String category,String author) {
         this.idSong = idSong;
         this.nameSong = nameSong;
         this.infoSong = infoSong;
@@ -32,13 +56,15 @@ public class Song  {
         this.listenSong = listenSong;
         this.downloadSong = downloadSong;
         this.commendSong = commendSong;
+        this.category = category;
+        this.author = author;
     }
 
-    public int getIdSong() {
+    public Long getIdSong() {
         return idSong;
     }
 
-    public void setIdSong(int idSong) {
+    public void setIdSong(Long idSong) {
         this.idSong = idSong;
     }
 
@@ -66,35 +92,35 @@ public class Song  {
         this.imageSong = imageSong;
     }
 
-    public String getDateSong() {
+    public Date getDateSong() {
         return dateSong;
     }
 
-    public void setDateSong(String dateSong) {
+    public void setDateSong(Date dateSong) {
         this.dateSong = dateSong;
     }
 
-    public String getLikeSong() {
+    public Long getLikeSong() {
         return likeSong;
     }
 
-    public void setLikeSong(String likeSong) {
+    public void setLikeSong(Long likeSong) {
         this.likeSong = likeSong;
     }
 
-    public String getListenSong() {
+    public Long getListenSong() {
         return listenSong;
     }
 
-    public void setListenSong(String listenSong) {
+    public void setListenSong(Long listenSong) {
         this.listenSong = listenSong;
     }
 
-    public String getDownloadSong() {
+    public Long getDownloadSong() {
         return downloadSong;
     }
 
-    public void setDownloadSong(String downloadSong) {
+    public void setDownloadSong(Long downloadSong) {
         this.downloadSong = downloadSong;
     }
 
@@ -104,5 +130,37 @@ public class Song  {
 
     public void setCommendSong(String commendSong) {
         this.commendSong = commendSong;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Singer getSinger() {
+        return singer;
+    }
+
+    public void setSinger(Singer singer) {
+        this.singer = singer;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 }
