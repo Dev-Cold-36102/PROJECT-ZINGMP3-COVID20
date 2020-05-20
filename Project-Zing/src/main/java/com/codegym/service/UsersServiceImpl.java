@@ -17,7 +17,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Users findById(Long id) {
-        Optional<Users> users =  usersRepository.findById(id);
+        Optional<Users> users = Optional.ofNullable(usersRepository.findOne(id));
         Users users1= users.get();
         return users1;
     }
