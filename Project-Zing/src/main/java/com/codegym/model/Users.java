@@ -16,7 +16,6 @@ public class Users  {
     private String password;
     private String status;
     private String phone;
-    private String token;
 
     @ManyToOne
     private Role role;
@@ -25,15 +24,9 @@ public class Users  {
     }
 
 
-    public String getToken() {
-        return token;
-    }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
 
-    public Users(String fullName, String email, String username, String password, String status, String phone, Role role, String token) {
+    public Users(String fullName, String email, String username, String password, String status, String phone, Role role) {
         this.fullName = fullName;
         this.email=email;
         this.username = username;
@@ -41,7 +34,6 @@ public class Users  {
         this.status = status;
         this.phone = phone;
         this.role = role;
-        this.token=token;
     }
 
     public Users(Long id, String fullName, String email, String username, String password, String status, String phone, Role role) {
