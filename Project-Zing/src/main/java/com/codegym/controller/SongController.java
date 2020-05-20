@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 public class SongController {
@@ -15,17 +17,12 @@ public class SongController {
     private SongService songService;
 
     @GetMapping("/api/songs")
-    @ResponseBody()
-    public Iterable<Song> getListCustomers(){
-        Iterable<Song> songs = songService.findAll();
+    public List<Song> getListCustomers(){
+        List<Song> songs = (List<Song>) songService.findAll();
         return songs;
     }
 
-//    @GetMapping("/api/view/{id}")
-//    public ResponseEntity<Void> viewSong(@PathVariable Long id){
-//        Song song = songService.findById(id);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+
 
     @RequestMapping(value = "/songs/update/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Song> updateCustomer(@PathVariable("id") int id, @RequestBody Song song) {
