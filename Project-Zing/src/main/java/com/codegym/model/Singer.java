@@ -17,8 +17,8 @@ public class Singer {
     @NotEmpty
     private String imageSinger;
 
-    @OneToMany(targetEntity = Song.class)
-    private List<Song> songs;
+//    @OneToMany(targetEntity = Song.class)
+//    private List<Song> songs;
 
     public Singer() {
     }
@@ -62,11 +62,11 @@ public class Singer {
         this.imageSinger = imageSinger;
     }
 
-    public List<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
-    }
+//    public List<Song> getSongs() {
+//        return songs;
+//    }
+//
+//    public void setSongs(List<Song> songs) {
+//        this.songs = songs;
+//    }
 }

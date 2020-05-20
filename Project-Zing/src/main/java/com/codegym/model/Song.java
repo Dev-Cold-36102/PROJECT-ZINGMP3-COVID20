@@ -17,6 +17,7 @@ public class Song  {
     @Size(min = 2, max = 30)
     private String nameSong;
     @NotEmpty
+    @Size(max = 5000)
     private String infoSong;
     @NotEmpty
     private String imageSong;
@@ -34,19 +35,21 @@ public class Song  {
     private String category;
     @NotEmpty
     private String author;
+    @NotEmpty
+    private String linkSong;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idSinger")
     private Singer singer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idAlbum")
     private Album album;
 
     public Song() {
     }
 
-    public Song(Long idSong, String nameSong, String infoSong, String imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong,String category,String author) {
+    public Song(Long idSong, String nameSong, String infoSong, String imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong,String category,String author,String linkSong) {
         this.idSong = idSong;
         this.nameSong = nameSong;
         this.infoSong = infoSong;
@@ -58,6 +61,7 @@ public class Song  {
         this.commendSong = commendSong;
         this.category = category;
         this.author = author;
+        this.linkSong = linkSong;
     }
 
     public Long getIdSong() {
@@ -162,5 +166,13 @@ public class Song  {
 
     public void setAlbum(Album album) {
         this.album = album;
+    }
+
+    public String getLinkSong() {
+        return linkSong;
+    }
+
+    public void setLinkSong(String link) {
+        this.linkSong = link;
     }
 }

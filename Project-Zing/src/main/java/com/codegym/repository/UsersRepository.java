@@ -4,5 +4,5 @@ import com.codegym.model.Users;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UsersRepository extends CrudRepository<Users,Long> {
-    Users findUsersByUserName (String username);
+    Users findUsersByUsername (String username);
 }

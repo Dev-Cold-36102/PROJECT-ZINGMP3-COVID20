@@ -12,45 +12,49 @@ public class Users  {
     private Long id;
     private String fullName;
     private String email;
-    private String userName;
+    private String username;
     private String password;
     private String status;
     private String phone;
+
     @ManyToOne
     private Role role;
 
     public Users() {
     }
 
-    public Users(String fullName, String email, String userName, String password, String status, String phone, Role role) {
+
+
+
+    public Users(String fullName, String email, String username, String password, String status, String phone, Role role) {
         this.fullName = fullName;
         this.email=email;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.status = status;
         this.phone = phone;
         this.role = role;
     }
 
-    public Users(Long id, String fullName, String email, String userName, String password, String status, String phone, Role role) {
+    public Users(Long id, String fullName, String email, String username, String password, String status, String phone, Role role) {
         this.id = id;
         this.fullName = fullName;
         this.email=email;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.status = status;
         this.phone = phone;
         this.role = role;
     }
 
-    public Users(String email, String userName, String password, String phone) {
+    public Users(String email, String username, String password, String phone) {
         this.email = email;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.phone = phone;
     }
-    public Users( String userName, String password) {
-        this.userName = userName;
+    public Users( String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
@@ -78,12 +82,12 @@ public class Users  {
         this.email = email;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getusername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setusername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
