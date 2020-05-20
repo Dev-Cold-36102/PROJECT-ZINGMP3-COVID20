@@ -88,9 +88,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/PROJECT_ZING?useUnicode=true&characterEncoding=UTF-8");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/mp3?useUnicode=true&characterEncoding=UTF-8");
         dataSource.setUsername("root");
-        dataSource.setPassword("Mattroicuatoi.36102");
+        dataSource.setPassword("Lamlam@95");
         return dataSource;
     }
 
@@ -129,8 +129,13 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
 
     @Bean
-    public UsersService usersService() {
-        return new UsersServiceImpl();
+    public SingerService singerService() {
+        return new SingerServiceImpl();
+    }
+
+    @Bean
+    public AlbumService albumService() {
+        return new AlbumServiceImpl();
     }
 
     @Bean
