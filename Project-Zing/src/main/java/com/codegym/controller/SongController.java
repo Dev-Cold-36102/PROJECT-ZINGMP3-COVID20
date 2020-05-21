@@ -1,12 +1,19 @@
 package com.codegym.controller;
 
 import com.codegym.model.Song;
+import com.codegym.model.SongForm;
 import com.codegym.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -15,13 +22,15 @@ public class SongController {
 
     @Autowired
     private SongService songService;
+    @Autowired
+    private Environment environment;
+
 
     @GetMapping("/api/songs")
-    public List<Song> getListCustomers(){
+    public List<Song> getListCustomers() {
         List<Song> songs = (List<Song>) songService.findAll();
         return songs;
     }
-
 
 
     @RequestMapping(value = "/songs/update/{id}", method = RequestMethod.PUT)
@@ -61,5 +70,40 @@ public class SongController {
 
         songService.remove(id);
         return new ResponseEntity<Song>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/create-song")
+    public ResponseEntity<?> createSong(@RequestBody SongForm songForm) {
+        System.out.println(songForm.getAuthor());
+        System.out.println(songForm.getImageSong());
+//        MultipartFile multipartImage = songForm.getImageSong();
+//        String imageName = multipartImage.getOriginalFilename();
+//        String imageUpload = environment.getProperty("image_upload").toString();
+//
+//        MultipartFile multipartAudio = songForm.getLinkSong();
+//        String audioName = multipartAudio.getOriginalFilename();
+//        String audioUpload = environment.getProperty("audio_upload").toString();
+//
+//        try {
+//            FileCopyUtils.copy(songForm.getImageSong().getBytes(), new File(imageUpload + imageName));
+//            FileCopyUtils.copy(songForm.getLinkSong().getBytes(), new File(audioUpload + audioName));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Song song = new Song(
+//                songForm.getNameSong(),
+//                songForm.getInfoSong(),
+//                imageName,
+//                songForm.getDateSong(),
+//                songForm.getLikeSong(),
+//                songForm.getListenSong(),
+//                songForm.getDownloadSong(),
+//                songForm.getCommendSong(),
+//                songForm.getCategory(),
+//                songForm.getAuthor(),
+//                audioName
+//        );
+//        songService.save(song);
+        return new ResponseEntity<Song>( HttpStatus.CREATED);
     }
 }

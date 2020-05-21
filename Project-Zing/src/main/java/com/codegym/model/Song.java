@@ -49,7 +49,21 @@ public class Song  {
     public Song() {
     }
 
-    public Song(Long idSong, String nameSong, String infoSong, String imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong,String category,String author,String linkSong) {
+    public Song(@NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, @NotEmpty Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong) {
+        this.nameSong = nameSong;
+        this.infoSong = infoSong;
+        this.imageSong = imageSong;
+        this.dateSong = dateSong;
+        this.likeSong = likeSong;
+        this.listenSong = listenSong;
+        this.downloadSong = downloadSong;
+        this.commendSong = commendSong;
+        this.category = category;
+        this.author = author;
+        this.linkSong = linkSong;
+    }
+
+    public Song(Long idSong, String nameSong, String infoSong, String imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong, String category, String author, String linkSong) {
         this.idSong = idSong;
         this.nameSong = nameSong;
         this.infoSong = infoSong;
@@ -63,6 +77,8 @@ public class Song  {
         this.author = author;
         this.linkSong = linkSong;
     }
+
+
 
     public Long getIdSong() {
         return idSong;
