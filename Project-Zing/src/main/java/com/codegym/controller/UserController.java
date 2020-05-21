@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @CrossOrigin("*")
@@ -25,9 +27,15 @@ public class UserController {
 
     @PostMapping("api/register")
     public ResponseEntity<Void> saveUsers(@RequestBody Users users) {
-        users.setRole(roleUser);
-        usersService.save(users);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        String name = users.getusername();
+        Users usersSearch=usersService.findByUserName(name);
+        if(usersSearch==null && usersService.findByEmail(users.getEmail())==null) {
+            users.setRole(roleUser);
+            usersService.save(users);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/login")
