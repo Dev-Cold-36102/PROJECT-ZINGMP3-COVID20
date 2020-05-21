@@ -34,7 +34,7 @@ public class SongController {
 
 
     @RequestMapping(value = "/songs/update/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Song> updateCustomer(@PathVariable("id") int id, @RequestBody Song song) {
+    public ResponseEntity<Song> updateCustomer(@PathVariable("id") Long id, @RequestBody Song song) {
         System.out.println("Updating Song " + id);
 
         Song currentSong = songService.findById(id);
@@ -59,7 +59,7 @@ public class SongController {
 
 
     @RequestMapping(value = "/songs/delete/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Song> deleteCustomer(@PathVariable("id") int id) {
+    public ResponseEntity<Song> deleteCustomer(@PathVariable("id") Long id) {
         System.out.println("Fetching & Deleting Song with id " + id);
 
         Song song = songService.findById(id);
