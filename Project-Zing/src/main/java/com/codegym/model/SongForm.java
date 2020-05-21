@@ -1,6 +1,8 @@
 package com.codegym.model;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Date;
 
 public class SongForm {
@@ -9,7 +11,7 @@ public class SongForm {
 
     private String nameSong;
     private String infoSong;
-    private String imageSong;
+    private MultipartFile imageSong;
     private Date dateSong;
     private Long likeSong;
     private Long listenSong;
@@ -17,13 +19,13 @@ public class SongForm {
     private String commendSong;
     private String category;
     private String author;
-    private String linkSong;
+    private MultipartFile linkSong;
 
 
     public SongForm() {
     }
 
-    public SongForm( String nameSong, String infoSong, String imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong, String category, String author, String linkSong) {
+    public SongForm( String nameSong, String infoSong, MultipartFile imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong, String category, String author, MultipartFile linkSong) {
         this.nameSong = nameSong;
         this.infoSong = infoSong;
         this.imageSong = imageSong;
@@ -54,11 +56,11 @@ public class SongForm {
         this.infoSong = infoSong;
     }
 
-    public String getImageSong() {
+    public MultipartFile getImageSong() {
         return imageSong;
     }
 
-    public void setImageSong(String imageSong) {
+    public void setImageSong(MultipartFile imageSong) {
         this.imageSong = imageSong;
     }
 
@@ -118,11 +120,11 @@ public class SongForm {
         this.author = author;
     }
 
-    public String getLinkSong() {
+    public MultipartFile getLinkSong() {
         return linkSong;
     }
 
-    public void setLinkSong(String linkSong) {
+    public void setLinkSong(MultipartFile linkSong) {
         this.linkSong = linkSong;
     }
 }

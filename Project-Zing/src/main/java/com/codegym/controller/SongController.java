@@ -76,34 +76,34 @@ public class SongController {
     public ResponseEntity<?> createSong(@RequestBody SongForm songForm) {
         System.out.println(songForm.getAuthor());
         System.out.println(songForm.getImageSong());
-//        MultipartFile multipartImage = songForm.getImageSong();
-//        String imageName = multipartImage.getOriginalFilename();
-//        String imageUpload = environment.getProperty("image_upload").toString();
-//
-//        MultipartFile multipartAudio = songForm.getLinkSong();
-//        String audioName = multipartAudio.getOriginalFilename();
-//        String audioUpload = environment.getProperty("audio_upload").toString();
-//
-//        try {
-//            FileCopyUtils.copy(songForm.getImageSong().getBytes(), new File(imageUpload + imageName));
-//            FileCopyUtils.copy(songForm.getLinkSong().getBytes(), new File(audioUpload + audioName));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        Song song = new Song(
-//                songForm.getNameSong(),
-//                songForm.getInfoSong(),
-//                imageName,
-//                songForm.getDateSong(),
-//                songForm.getLikeSong(),
-//                songForm.getListenSong(),
-//                songForm.getDownloadSong(),
-//                songForm.getCommendSong(),
-//                songForm.getCategory(),
-//                songForm.getAuthor(),
-//                audioName
-//        );
-//        songService.save(song);
-        return new ResponseEntity<Song>( HttpStatus.CREATED);
+        MultipartFile multipartImage = songForm.getImageSong();
+        String imageName = multipartImage.getOriginalFilename();
+        String imageUpload = environment.getProperty("image_upload").toString();
+
+        MultipartFile multipartAudio = songForm.getLinkSong();
+        String audioName = multipartAudio.getOriginalFilename();
+        String audioUpload = environment.getProperty("audio_upload").toString();
+
+        try {
+            FileCopyUtils.copy(songForm.getImageSong().getBytes(), new File(imageUpload + imageName));
+            FileCopyUtils.copy(songForm.getLinkSong().getBytes(), new File(audioUpload + audioName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Song song = new Song(
+                songForm.getNameSong(),
+                songForm.getInfoSong(),
+                imageName,
+                songForm.getDateSong(),
+                songForm.getLikeSong(),
+                songForm.getListenSong(),
+                songForm.getDownloadSong(),
+                songForm.getCommendSong(),
+                songForm.getCategory(),
+                songForm.getAuthor(),
+                audioName
+        );
+        songService.save(song);
+        return new ResponseEntity<Song>(song, HttpStatus.CREATED);
     }
 }
