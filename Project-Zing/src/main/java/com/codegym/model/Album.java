@@ -11,14 +11,11 @@ public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idAlbum;
-    @NotEmpty
     private String nameAlbum;
-    @NotEmpty
     private String infoAlbum;
-    @NotEmpty
     private String imageAlbum;
 
-    @OneToMany(targetEntity = Song.class)
+    @OneToMany(targetEntity = Song.class,fetch = FetchType.EAGER)
     private List<Song> songs;
 
     public Album() {

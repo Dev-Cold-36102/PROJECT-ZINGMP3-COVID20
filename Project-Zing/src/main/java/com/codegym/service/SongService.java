@@ -6,9 +6,9 @@ public interface SongService {
 
     Iterable<Song> findAll();
 
-    Song findById(int id);
+    Song findById(Long id);
 
     void save(Song song);
 
-    void remove(int id);
+    void remove(Long id);
 }

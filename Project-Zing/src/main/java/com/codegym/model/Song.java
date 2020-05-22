@@ -16,30 +16,21 @@ public class Song  {
     @NotEmpty
     @Size(min = 2, max = 30)
     private String nameSong;
-    @NotEmpty
     private String infoSong;
-    @NotEmpty
     private String imageSong;
-    @NotEmpty
     public Date dateSong;
-    @NotEmpty
     private Long likeSong;
-    @NotEmpty
     private Long listenSong;
-    @NotEmpty
     private Long downloadSong;
-    @NotEmpty
     private String commendSong;
-    @NotEmpty
     private String category;
-    @NotEmpty
     private String author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idSinger")
     private Singer singer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idAlbum")
     private Album album;
 
