@@ -79,6 +79,19 @@ public class Song  {
     }
 
 
+    public Song(@NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, @NotEmpty Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, Singer singer, Album album) {
+        this.nameSong = nameSong;
+        this.infoSong = infoSong;
+        this.dateSong = dateSong;
+        this.likeSong = likeSong;
+        this.listenSong = listenSong;
+        this.downloadSong = downloadSong;
+        this.commendSong = commendSong;
+        this.category = category;
+        this.author = author;
+        this.singer = singer;
+        this.album = album;
+    }
 
     public Long getIdSong() {
         return idSong;
