@@ -1,6 +1,10 @@
 package com.codegym.controller;
 
+import com.codegym.model.Album;
+import com.codegym.model.Singer;
 import com.codegym.model.Song;
+import com.codegym.service.AlbumService;
+import com.codegym.service.SingerService;
 import com.codegym.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -23,9 +27,14 @@ public class SongController {
     private SongService songService;
     @Autowired
     private Environment environment;
+    @Autowired
+    private AlbumService albumService;
+    @Autowired
+    private SingerService singerService;
 
 
     @GetMapping("/api/songs")
+    @ResponseBody
     public List<Song> getListCustomers() {
         List<Song> songs = (List<Song>) songService.findAll();
         return songs;
@@ -56,6 +65,22 @@ public class SongController {
         return new ResponseEntity<Song>(currentSong, HttpStatus.OK);
     }
 
+    @GetMapping("/api/singer")
+    @ResponseBody
+    public List<Singer> getAllSinger() {
+        List<Singer> singers = this.singerService.getAllSinger();
+        System.out.println(singers.size());
+        return singers;
+    }
+
+    @GetMapping("/api/album")
+    @ResponseBody
+    public List<Album> getAllAlbum() {
+        List<Album> albums = this.albumService.getAllAlbum();
+        System.out.println(albums.size());
+        return albums;
+    }
+
 
     @RequestMapping(value = "/songs/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Song> deleteCustomer(@PathVariable("id") Long id) {
@@ -73,13 +98,13 @@ public class SongController {
 
     @PostMapping(value = "/create-song", consumes = "multipart/form-data")
     @ResponseBody
-    public ResponseEntity<Response> addPost(@RequestPart(value = "imageSong") MultipartFile fileImage,@RequestPart(value = "linkSong") MultipartFile fileAudio,@ModelAttribute Song song) {
+    public ResponseEntity<Response> addPost(@RequestPart(value = "imageSong") MultipartFile fileImage, @RequestPart(value = "linkSong") MultipartFile fileAudio, @ModelAttribute Song song) {
         String imageName = fileImage.getOriginalFilename();
         String audioName = fileAudio.getOriginalFilename();
         System.out.println(imageName);
         String imageUpload = environment.getProperty("image_upload").toString();
         String audioUpload = environment.getProperty("audio_upload").toString();
-        String srcImage="../assets/images/"+imageName;
+        String srcImage = "../assets/images/" + imageName;
         try {
             FileCopyUtils.copy(fileImage.getBytes(), new File(imageUpload + imageName));
             FileCopyUtils.copy(fileAudio.getBytes(), new File(audioUpload + audioName));
