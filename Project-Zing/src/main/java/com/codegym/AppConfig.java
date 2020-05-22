@@ -88,9 +88,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/PROJECT_ZING?useUnicode=true&characterEncoding=UTF-8");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/zing?useUnicode=true&characterEncoding=UTF-8");
         dataSource.setUsername("root");
-        dataSource.setPassword("Mattroicuatoi.36102");
+        dataSource.setPassword("123456@Abc");
         return dataSource;
     }
 
@@ -145,10 +145,13 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String fileUpload = environment.getProperty("file_upload").toString();
+        String imageUpload = environment.getProperty("image_upload").toString();
+        String audioUploadUpload = environment.getProperty("audio_upload").toString();
 
         registry.addResourceHandler("/i/**")
-                .addResourceLocations("file:" + fileUpload);
+                .addResourceLocations("file:" + imageUpload);
+        registry.addResourceHandler("/i/**")
+                .addResourceLocations("file:" + audioUploadUpload);
     }
 
     @Bean(name = "multipartResolver")
