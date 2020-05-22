@@ -4,6 +4,8 @@ import com.codegym.model.Song;
 import com.codegym.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
+
 public class SongServiceImpl implements SongService {
 
     @Autowired
@@ -15,17 +17,18 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Song findById(int id) {
+    public Song findById(Long id) {
         return songRepository.findOne(id);
     }
 
     @Override
+//    @Transactional
     public void save(Song song) {
         songRepository.save(song);
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(Long id) {
         songRepository.delete(id);
     }
 }
