@@ -15,7 +15,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Song findById(int id) {
+    public Song findById(Long id) {
         return songRepository.findOne(id);
     }
 
@@ -25,7 +25,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(Long id) {
         songRepository.delete(id);
     }
 }
