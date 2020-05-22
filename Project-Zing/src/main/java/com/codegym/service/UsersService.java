@@ -10,4 +10,5 @@ public interface UsersService {
     void save(Users users);
     void delete(Users users);
     Users findByUserName(String username);
+    Users findByEmail(String email);
 }

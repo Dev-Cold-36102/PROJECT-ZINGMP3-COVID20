@@ -56,6 +56,11 @@ public class UsersServiceImpl implements UsersService {
         return null;
     }
 
+    @Override
+    public Users findByEmail(String email) {
+        return usersRepository.findUsersByEmail(email);
+    }
+
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //        Users users=usersRepository.findUsersByUserName(username);
