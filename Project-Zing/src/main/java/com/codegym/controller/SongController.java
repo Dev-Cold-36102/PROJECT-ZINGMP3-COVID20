@@ -98,7 +98,10 @@ public class SongController {
 
     @PostMapping(value = "/create-song", consumes = "multipart/form-data")
     @ResponseBody
-    public ResponseEntity<Response> addPost(@RequestPart(value = "imageSong") MultipartFile fileImage, @RequestPart(value = "linkSong") MultipartFile fileAudio, @ModelAttribute Song song) {
+    public ResponseEntity<Response> addPost(
+            @RequestPart(value = "imageSong") MultipartFile fileImage
+            , @RequestPart(value = "linkSong") MultipartFile fileAudio
+    ) {
         String imageName = fileImage.getOriginalFilename();
         String audioName = fileAudio.getOriginalFilename();
         System.out.println(imageName);
