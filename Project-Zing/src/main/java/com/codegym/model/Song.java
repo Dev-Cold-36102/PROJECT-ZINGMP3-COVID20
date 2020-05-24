@@ -1,13 +1,16 @@
 package com.codegym.model;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
 @Table(name = "songs")
-public class Song  {
+public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,13 +24,14 @@ public class Song  {
     private String infoSong;
     @NotEmpty
     private String imageSong;
-    @NotEmpty
+    @NotNull
     public Date dateSong;
-    @NotEmpty
+    @NotNull
     private Long likeSong;
-    @NotEmpty
+    @NotNull
     private Long listenSong;
-    @NotEmpty
+
+    @NotNull
     private Long downloadSong;
     @NotEmpty
     private String commendSong;
@@ -49,21 +53,7 @@ public class Song  {
     public Song() {
     }
 
-    public Song(@NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, @NotEmpty Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong) {
-        this.nameSong = nameSong;
-        this.infoSong = infoSong;
-        this.imageSong = imageSong;
-        this.dateSong = dateSong;
-        this.likeSong = likeSong;
-        this.listenSong = listenSong;
-        this.downloadSong = downloadSong;
-        this.commendSong = commendSong;
-        this.category = category;
-        this.author = author;
-        this.linkSong = linkSong;
-    }
-
-    public Song(Long idSong, String nameSong, String infoSong, String imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong, String category, String author, String linkSong) {
+    public Song(Long idSong, @NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong, Singer singer, Album album) {
         this.idSong = idSong;
         this.nameSong = nameSong;
         this.infoSong = infoSong;
@@ -76,12 +66,14 @@ public class Song  {
         this.category = category;
         this.author = author;
         this.linkSong = linkSong;
+        this.singer = singer;
+        this.album = album;
     }
 
-
-    public Song(@NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, @NotEmpty Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, Singer singer, Album album) {
+    public Song(@NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong, Singer singer, Album album) {
         this.nameSong = nameSong;
         this.infoSong = infoSong;
+        this.imageSong = imageSong;
         this.dateSong = dateSong;
         this.likeSong = likeSong;
         this.listenSong = listenSong;
@@ -89,6 +81,7 @@ public class Song  {
         this.commendSong = commendSong;
         this.category = category;
         this.author = author;
+        this.linkSong = linkSong;
         this.singer = singer;
         this.album = album;
     }
@@ -181,6 +174,14 @@ public class Song  {
         this.author = author;
     }
 
+    public String getLinkSong() {
+        return linkSong;
+    }
+
+    public void setLinkSong(String linkSong) {
+        this.linkSong = linkSong;
+    }
+
     public Singer getSinger() {
         return singer;
     }
@@ -195,13 +196,5 @@ public class Song  {
 
     public void setAlbum(Album album) {
         this.album = album;
-    }
-
-    public String getLinkSong() {
-        return linkSong;
-    }
-
-    public void setLinkSong(String link) {
-        this.linkSong = link;
     }
 }

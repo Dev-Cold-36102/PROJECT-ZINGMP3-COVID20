@@ -54,7 +54,6 @@ public class UsersServiceImpl implements UsersService {
         if (users.size() == 0) {
             users = usersList();
         }
-        System.out.println(users.size());
         for (Users u : users) {
             if (u.getusername().equals(username)) {
                 return u;
