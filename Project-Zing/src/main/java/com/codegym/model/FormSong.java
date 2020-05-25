@@ -12,8 +12,9 @@ public class FormSong {
     private String author;
     private String singer;
     private String album;
+    private String idUser;
 
-    public FormSong(String nameSong, String infoSong, String dateSong, String likeSong, String listenSong, String downloadSong, String commendSong, String category, String author, String singer, String album) {
+    public FormSong(String nameSong, String infoSong, String dateSong, String likeSong, String listenSong, String downloadSong, String commendSong, String category, String author, String singer, String album, String idUser) {
         this.nameSong = nameSong;
         this.infoSong = infoSong;
         this.dateSong = dateSong;
@@ -25,6 +26,15 @@ public class FormSong {
         this.author = author;
         this.singer = singer;
         this.album = album;
+        this.idUser = idUser;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public FormSong() {

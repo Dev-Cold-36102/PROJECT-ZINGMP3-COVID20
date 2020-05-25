@@ -1,6 +1,7 @@
 package com.codegym.model;
 
 import net.bytebuddy.implementation.bind.annotation.Default;
+import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -50,10 +51,14 @@ public class Song {
     @JoinColumn(name = "idAlbum")
     private Album album;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idUser")
+    private Users user;
+
     public Song() {
     }
 
-    public Song(Long idSong, @NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong, Singer singer, Album album) {
+    public Song(Long idSong, @NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotNull Date dateSong, @NotNull Long likeSong, @NotNull Long listenSong, @NotNull Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong, Singer singer, Album album, Users user) {
         this.idSong = idSong;
         this.nameSong = nameSong;
         this.infoSong = infoSong;
@@ -68,9 +73,10 @@ public class Song {
         this.linkSong = linkSong;
         this.singer = singer;
         this.album = album;
+        this.user = user;
     }
 
-    public Song(@NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong, Singer singer, Album album) {
+    public Song(@NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotNull Date dateSong, @NotNull Long likeSong, @NotNull Long listenSong, @NotNull Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong, Singer singer, Album album, Users user) {
         this.nameSong = nameSong;
         this.infoSong = infoSong;
         this.imageSong = imageSong;
@@ -84,6 +90,15 @@ public class Song {
         this.linkSong = linkSong;
         this.singer = singer;
         this.album = album;
+        this.user = user;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 
     public Long getIdSong() {
