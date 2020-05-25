@@ -1,12 +1,10 @@
 package com.codegym.controller;
 
-import com.codegym.model.Album;
-import com.codegym.model.FormSong;
-import com.codegym.model.Singer;
-import com.codegym.model.Song;
+import com.codegym.model.*;
 import com.codegym.service.AlbumService;
 import com.codegym.service.SingerService;
 import com.codegym.service.SongService;
+import com.codegym.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -34,6 +32,9 @@ public class SongController {
     private AlbumService albumService;
     @Autowired
     private SingerService singerService;
+
+    @Autowired
+    private UsersService usersService;
 
 
     @GetMapping("/api/songs")
@@ -103,7 +104,6 @@ public class SongController {
             , @ModelAttribute FormSong formSong) {
         String imageName = fileImage.getOriginalFilename();
         String audioName = fileAudio.getOriginalFilename();
-        System.out.println(audioName);
         String imageUpload = environment.getProperty("image_upload").toString();
         String audioUpload = environment.getProperty("audio_upload").toString();
         try {
@@ -115,6 +115,7 @@ public class SongController {
 
         Singer singer = this.singerService.findSingerByName(formSong.getSinger().toString());
         Album album = this.albumService.findAlbumByName(formSong.getAlbum());
+        Users users = this.usersService.findById(Long.parseLong(formSong.getIdUser()));
         if (singer == null || album == null) {
             System.out.println("null");
             return new ResponseEntity<Error>(HttpStatus.BAD_REQUEST);
@@ -125,13 +126,21 @@ public class SongController {
             song = new Song(formSong.getNameSong(), formSong.getInfoSong(), imageName
                     , new SimpleDateFormat("dd-MM-yyyy").parse(formSong.getDateSong()), Long.parseLong(formSong.getLikeSong()),
                     Long.parseLong(formSong.getListenSong()), Long.parseLong(formSong.getDownloadSong()),
-                    formSong.getCommendSong(), formSong.getCategory(), formSong.getAuthor(), audioName, singer, album);
+                    formSong.getCommendSong(), formSong.getCategory(), formSong.getAuthor(), audioName, singer, album, users);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         this.songService.save(song);
 
-
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user-song")
+    @ResponseBody
+    public ResponseEntity<List<Song>> editSong(@RequestBody String idUser) {
+        Users user = this.usersService.findById(Long.parseLong(idUser));
+        List<Song> songList = this.songService.findAllSongByIdUser(user);
+        System.out.println(songList.size());
+        return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
     }
 }

@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Users  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idUser;
     private String fullName;
     private String email;
     private String username;
@@ -36,8 +36,8 @@ public class Users  {
         this.role = role;
     }
 
-    public Users(Long id, String fullName, String email, String username, String password, String status, String phone, Role role) {
-        this.id = id;
+    public Users(Long idUser, String fullName, String email, String username, String password, String status, String phone, Role role) {
+        this.idUser = idUser;
         this.fullName = fullName;
         this.email=email;
         this.username = username;
@@ -58,12 +58,12 @@ public class Users  {
         this.password = password;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdUser(Long id) {
+        this.idUser = id;
     }
 
     public String getFullName() {

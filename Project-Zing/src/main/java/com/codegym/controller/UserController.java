@@ -37,11 +37,11 @@ public class UserController {
         if (user != null) {
             if (user.getPassword().equals(userLogin.getPassword())) {
                  userClientAuthen = new UserClientAuthen(
-                        user.getId(),
+                        user.getIdUser(),
                         user.getusername(),
                         user.getPassword(),
                         user.getRole().getRole(),
-                        "fake-jwt-token." + user.getId()
+                        "fake-jwt-token." + user.getIdUser()
                 );
             } else {
                 userClientAuthen = null;
