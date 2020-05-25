@@ -7,12 +7,9 @@ import com.codegym.service.AlbumService;
 import com.codegym.service.SingerService;
 import com.codegym.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 
@@ -22,10 +19,12 @@ public class SongController {
 
     @Autowired
     private SongService songService;
-    @Autowired
-    private AlbumService albumService;
+
     @Autowired
     private SingerService singerService;
+
+    @Autowired
+    private AlbumService albumService;
 
     @GetMapping("/api/songs")
     @ResponseBody()
@@ -34,45 +33,34 @@ public class SongController {
         return songs;
     }
 
-    @GetMapping("/api/albums")
+    @GetMapping("api/singers")
+    @ResponseBody()
+    public Iterable<Singer> getListSingers() {
+        Iterable<Singer> singers = singerService.findAll();
+        return singers;
+    }
+
+    @GetMapping("api/albums")
     @ResponseBody()
     public Iterable<Album> getListAlbums() {
         Iterable<Album> albums = albumService.findAll();
         return albums;
     }
 
-        @GetMapping("api/singers")
-        @ResponseBody()
-        public Iterable<Singer> getListSingers () {
-            Iterable<Singer> singers = singerService.findAll();
-            return singers;
-        }
-//
-////    @GetMapping("/api/view/{id}")
-////    public ResponseEntity<Void> viewSong(@PathVariable Long id){
-////        Song song = songService.findById(id);
-////        return new ResponseEntity<>(HttpStatus.OK);
-////    }
+//    @GetMapping("/api/view/{id}")
+//    public ResponseEntity<Void> viewSong(@PathVariable Long id){
+//        Song song = songService.findById(id);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
-    @PostMapping("api/create")
-    public ResponseEntity<?> createSong(@RequestBody Song song){
-        System.out.println(song.toString());
-//        songService.save(song);
+    @PostMapping("api/createSong")
+    public ResponseEntity<Void> createSong(@Valid @RequestBody Song song) {
+        songService.save(song);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @RequestMapping(value = "api/create", method = RequestMethod.POST)
-//    public ResponseEntity<Void> createCustomer(@RequestBody Song song, UriComponentsBuilder ucBuilder) {
-//        System.out.println("Creating Customer " + song.getNameSong());
-//        songService.save(song);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(ucBuilder.path("/songs/{id}").buildAndExpand(song.getIdSong()).toUri());
-//        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-//    }
-
-//    @Transactional
     @RequestMapping(value = "/songs/update/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Song> updateCustomer(@PathVariable("id") Long id, @RequestBody Song song) {
+    public ResponseEntity<Song> updateCustomer(@PathVariable("id") Long id, @Valid @RequestBody Song song) {
         System.out.println("Updating Song " + id);
 
         Song currentSong = songService.findById(id);
@@ -81,16 +69,15 @@ public class SongController {
             System.out.println("Song with id " + id + " not found");
             return new ResponseEntity<Song>(HttpStatus.NOT_FOUND);
         }
-        currentSong.setAuthor(song.getAuthor());
-        currentSong.setCategory(song.getCategory());
-        currentSong.setCommendSong(song.getCommendSong());
-        currentSong.setDateSong(song.getDateSong());
-        currentSong.setDownloadSong(song.getDownloadSong());
-        currentSong.setImageSong(song.getImageSong());
+
+        currentSong.setNameSong(song.getNameSong());
         currentSong.setInfoSong(song.getInfoSong());
+        currentSong.setImageSong(song.getImageSong());
+        currentSong.setDateSong(song.getDateSong());
         currentSong.setLikeSong(song.getLikeSong());
         currentSong.setListenSong(song.getListenSong());
-        currentSong.setNameSong(song.getNameSong());
+        currentSong.setDownloadSong(song.getDownloadSong());
+        currentSong.setCommendSong(song.getCommendSong());
 
         songService.save(currentSong);
         return new ResponseEntity<Song>(currentSong, HttpStatus.OK);

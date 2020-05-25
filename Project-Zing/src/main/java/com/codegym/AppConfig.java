@@ -88,9 +88,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/zing?useUnicode=true&characterEncoding=UTF-8");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/mp3?useUnicode=true&characterEncoding=UTF-8");
         dataSource.setUsername("root");
-        dataSource.setPassword("123456@Abc");
+        dataSource.setPassword("Lamlam@95");
         return dataSource;
     }
 
@@ -129,8 +129,13 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
 
     @Bean
-    public UsersService usersService() {
-        return new UsersServiceImpl();
+    public SingerService singerService() {
+        return new SingerServiceImpl();
+    }
+
+    @Bean
+    public AlbumService albumService() {
+        return new AlbumServiceImpl();
     }
 
     @Bean
@@ -145,13 +150,10 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String imageUpload = environment.getProperty("image_upload").toString();
-        String audioUploadUpload = environment.getProperty("audio_upload").toString();
+        String fileUpload = environment.getProperty("file_upload").toString();
 
         registry.addResourceHandler("/i/**")
-                .addResourceLocations("file:" + imageUpload);
-        registry.addResourceHandler("/i/**")
-                .addResourceLocations("file:" + audioUploadUpload);
+                .addResourceLocations("file:" + fileUpload);
     }
 
     @Bean(name = "multipartResolver")
