@@ -1,7 +1,8 @@
-package com.codegym.service;
+package com.codegym.service.Impl;
 
 import com.codegym.model.Users;
 import com.codegym.repository.UsersRepository;
+import com.codegym.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 
@@ -53,7 +54,6 @@ public class UsersServiceImpl implements UsersService {
         if (users.size() == 0) {
             users = usersList();
         }
-        System.out.println(users.size());
         for (Users u : users) {
             if (u.getusername().equals(username)) {
                 return u;

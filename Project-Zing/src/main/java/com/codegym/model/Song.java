@@ -1,13 +1,16 @@
 package com.codegym.model;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
 @Table(name = "songs")
-public class Song  {
+public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,28 +19,41 @@ public class Song  {
     @NotEmpty
     @Size(min = 2, max = 30)
     private String nameSong;
+    @NotEmpty
+    @Size(max = 5000)
     private String infoSong;
+    @NotEmpty
     private String imageSong;
+    @NotNull
     public Date dateSong;
+    @NotNull
     private Long likeSong;
+    @NotNull
     private Long listenSong;
-    private Long downloadSong;
-    private String commendSong;
-    private String category;
-    private String author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
+    private Long downloadSong;
+    @NotEmpty
+    private String commendSong;
+    @NotEmpty
+    private String category;
+    @NotEmpty
+    private String author;
+    @NotEmpty
+    private String linkSong;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idSinger")
     private Singer singer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idAlbum")
     private Album album;
 
     public Song() {
     }
 
-    public Song(Long idSong, String nameSong, String infoSong, String imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong,String category,String author) {
+    public Song(Long idSong, @NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong, Singer singer, Album album) {
         this.idSong = idSong;
         this.nameSong = nameSong;
         this.infoSong = infoSong;
@@ -49,6 +65,25 @@ public class Song  {
         this.commendSong = commendSong;
         this.category = category;
         this.author = author;
+        this.linkSong = linkSong;
+        this.singer = singer;
+        this.album = album;
+    }
+
+    public Song(@NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong, Singer singer, Album album) {
+        this.nameSong = nameSong;
+        this.infoSong = infoSong;
+        this.imageSong = imageSong;
+        this.dateSong = dateSong;
+        this.likeSong = likeSong;
+        this.listenSong = listenSong;
+        this.downloadSong = downloadSong;
+        this.commendSong = commendSong;
+        this.category = category;
+        this.author = author;
+        this.linkSong = linkSong;
+        this.singer = singer;
+        this.album = album;
     }
 
     public Long getIdSong() {
@@ -137,6 +172,14 @@ public class Song  {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getLinkSong() {
+        return linkSong;
+    }
+
+    public void setLinkSong(String linkSong) {
+        this.linkSong = linkSong;
     }
 
     public Singer getSinger() {

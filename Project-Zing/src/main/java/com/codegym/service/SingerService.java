@@ -2,13 +2,9 @@ package com.codegym.service;
 
 import com.codegym.model.Singer;
 
+import java.util.List;
+
 public interface SingerService {
-
-    Iterable<Singer> findAll();
-
-    Singer findById(Long id);
-
-    void save(Singer singer);
-
-    void remove(Long id);
+    List<Singer> getAllSinger();
+    Singer findSingerByName(String name);
 }

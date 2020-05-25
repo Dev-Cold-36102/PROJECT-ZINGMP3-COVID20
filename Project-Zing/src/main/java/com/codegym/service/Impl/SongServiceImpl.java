@@ -1,7 +1,8 @@
-package com.codegym.service;
+package com.codegym.service.Impl;
 
 import com.codegym.model.Song;
 import com.codegym.repository.SongRepository;
+import com.codegym.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
