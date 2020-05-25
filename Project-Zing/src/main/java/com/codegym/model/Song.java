@@ -16,54 +16,28 @@ public class Song  {
     @NotEmpty
     @Size(min = 2, max = 30)
     private String nameSong;
-    @NotEmpty
-    @Size(max = 5000)
     private String infoSong;
-    @NotEmpty
     private String imageSong;
-    @NotEmpty
     public Date dateSong;
-    @NotEmpty
     private Long likeSong;
-    @NotEmpty
     private Long listenSong;
-    @NotEmpty
     private Long downloadSong;
-    @NotEmpty
     private String commendSong;
-    @NotEmpty
     private String category;
-    @NotEmpty
     private String author;
-    @NotEmpty
-    private String linkSong;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idSinger")
     private Singer singer;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idAlbum")
     private Album album;
 
     public Song() {
     }
 
-    public Song(@NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty String imageSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, @NotEmpty Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, @NotEmpty String linkSong) {
-        this.nameSong = nameSong;
-        this.infoSong = infoSong;
-        this.imageSong = imageSong;
-        this.dateSong = dateSong;
-        this.likeSong = likeSong;
-        this.listenSong = listenSong;
-        this.downloadSong = downloadSong;
-        this.commendSong = commendSong;
-        this.category = category;
-        this.author = author;
-        this.linkSong = linkSong;
-    }
-
-    public Song(Long idSong, String nameSong, String infoSong, String imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong, String category, String author, String linkSong) {
+    public Song(Long idSong, String nameSong, String infoSong, String imageSong, Date dateSong, Long likeSong, Long listenSong, Long downloadSong, String commendSong,String category,String author) {
         this.idSong = idSong;
         this.nameSong = nameSong;
         this.infoSong = infoSong;
@@ -75,22 +49,6 @@ public class Song  {
         this.commendSong = commendSong;
         this.category = category;
         this.author = author;
-        this.linkSong = linkSong;
-    }
-
-
-    public Song(@NotEmpty @Size(min = 2, max = 30) String nameSong, @NotEmpty @Size(max = 5000) String infoSong, @NotEmpty Date dateSong, @NotEmpty Long likeSong, @NotEmpty Long listenSong, @NotEmpty Long downloadSong, @NotEmpty String commendSong, @NotEmpty String category, @NotEmpty String author, Singer singer, Album album) {
-        this.nameSong = nameSong;
-        this.infoSong = infoSong;
-        this.dateSong = dateSong;
-        this.likeSong = likeSong;
-        this.listenSong = listenSong;
-        this.downloadSong = downloadSong;
-        this.commendSong = commendSong;
-        this.category = category;
-        this.author = author;
-        this.singer = singer;
-        this.album = album;
     }
 
     public Long getIdSong() {
@@ -195,13 +153,5 @@ public class Song  {
 
     public void setAlbum(Album album) {
         this.album = album;
-    }
-
-    public String getLinkSong() {
-        return linkSong;
-    }
-
-    public void setLinkSong(String link) {
-        this.linkSong = link;
     }
 }

@@ -1,5 +1,7 @@
 package com.codegym.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
@@ -10,15 +12,12 @@ public class Singer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idSinger;
-    @NotEmpty
     private String nameSinger;
-    @NotEmpty
     private String infoSinger;
-    @NotEmpty
     private String imageSinger;
 
-//    @OneToMany(targetEntity = Song.class)
-//    private List<Song> songs;
+    @OneToMany(targetEntity = Song.class,fetch = FetchType.EAGER)
+    private List<Song> songs;
 
     public Singer() {
     }
@@ -62,11 +61,11 @@ public class Singer {
         this.imageSinger = imageSinger;
     }
 
-//    public List<Song> getSongs() {
-//        return songs;
-//    }
-//
-//    public void setSongs(List<Song> songs) {
-//        this.songs = songs;
-//    }
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
+    }
 }

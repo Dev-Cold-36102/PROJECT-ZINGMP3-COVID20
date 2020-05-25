@@ -1,6 +1,5 @@
 package com.codegym.service;
 
-import com.codegym.model.Album;
 import com.codegym.model.Singer;
 
 public interface SingerService {

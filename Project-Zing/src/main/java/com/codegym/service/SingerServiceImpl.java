@@ -4,7 +4,7 @@ import com.codegym.model.Singer;
 import com.codegym.repository.SingerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class SingerServiceImpl implements SingerService  {
+public class SingerServiceImpl implements SingerService {
     @Autowired
     private SingerRepository singerRepository;
 
