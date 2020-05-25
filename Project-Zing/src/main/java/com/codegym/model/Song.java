@@ -1,6 +1,5 @@
 package com.codegym.model;
 
-import net.bytebuddy.implementation.bind.annotation.Default;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
