@@ -58,4 +58,35 @@ public class PlaylistController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/update-playlist/{id}")
+    public ResponseEntity<Void> updatePlayList(@PathVariable Long id, @RequestBody FromPlaylist fromPlaylist,
+                                               @RequestPart(value = "image") MultipartFile imagePlaylist) throws ParseException {
+        FromPlaylist fromPlaylistUpdate = playlistService.findById(id);
+
+
+
+        String imageUpload = environment.getProperty("image_upload_playlist").toString();
+        String imageName = imagePlaylist.getOriginalFilename();
+        fromPlaylistUpdate.setDate(fromPlaylist.getDate());
+        fromPlaylistUpdate.setName(fromPlaylist.getName());
+        fromPlaylistUpdate.setDescription(fromPlaylist.getDescription());
+        Users users = usersService.findByUserName(fromPlaylist.getUsers());
+        System.out.println(users.getusername());
+
+        Playlist playlist=new Playlist(fromPlaylist.getName(),
+                imageName,fromPlaylist.getDescription(),new SimpleDateFormat("dd-MM-yyyy").parse(fromPlaylist.getDate()),
+                fromPlaylist.getLikePlaylist(),fromPlaylist.getListen(),fromPlaylist.getDownload(),users);
+
+
+        playlistService.save(playlist);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deletePlaylist(@PathVariable Long id){
+        playlistService.remove(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
