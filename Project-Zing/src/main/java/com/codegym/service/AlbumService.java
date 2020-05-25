@@ -1,10 +1,15 @@
 package com.codegym.service;
 
 import com.codegym.model.Album;
-
-import java.util.List;
+import com.codegym.model.Song;
 
 public interface AlbumService {
-    List<Album> getAllAlbum();
-    Album findAlbumByName(String name);
+
+    Iterable<Album> findAll();
+
+    Album findById(Long id);
+
+    void save(Album album);
+
+    void remove(Long id);
 }
