@@ -3,11 +3,7 @@ package com.codegym;
 
 import com.codegym.model.Role;
 import com.codegym.service.*;
-import com.codegym.service.Impl.AlbumServiceImpl;
-import com.codegym.service.Impl.SingerServiceImpl;
-import com.codegym.service.Impl.UsersServiceImpl;
-import com.codegym.service.SongService;
-import com.codegym.service.Impl.SongServiceImpl;
+import com.codegym.service.Impl.*;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,7 +25,6 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -39,7 +34,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Filter;
 
 @Configuration
 @EnableWebMvc
@@ -129,6 +123,10 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         return new SongServiceImpl();
     }
 
+    @Bean Playlist_SongService playlist_songService(){
+        return  new Playlist_SongServiceImpl();
+    }
+
     @Bean
     public UsersService usersService() {
         return new UsersServiceImpl();
@@ -142,6 +140,10 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Bean
     public Role roleAdmin(){
         return new Role(2L,"ROLE_ADMIN");
+    }
+    @Bean
+    public PlaylistService playlistService(){
+        return new PlaylistServiceImpl();
     }
 
     @Override

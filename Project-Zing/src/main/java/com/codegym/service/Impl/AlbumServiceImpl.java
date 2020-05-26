@@ -33,4 +33,20 @@ public class AlbumServiceImpl implements AlbumService {
         }
         return null;
     }
+
+
+    @Override
+    public Album findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void save(Album album) {
+
+    }
+
+    @Override
+    public void remove(Long id) {
+
+    }
 }

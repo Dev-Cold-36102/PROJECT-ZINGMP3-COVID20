@@ -1,8 +1,6 @@
 package com.codegym.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Entity
 @Table(name = "albums")
@@ -15,8 +13,8 @@ public class Album {
     private String infoAlbum;
     private String imageAlbum;
 
-    @OneToMany(targetEntity = Song.class,fetch = FetchType.EAGER)
-    private List<Song> songs;
+//    @OneToMany(targetEntity = Song.class,fetch = FetchType.EAGER)
+//    private List<Song> songs;
 
     public Album() {
     }
@@ -61,11 +59,11 @@ public class Album {
         this.imageAlbum = imageAlbum;
     }
 
-    public List<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
-    }
+//    public List<Song> getSongs() {
+//        return songs;
+//    }
+//
+//    public void setSongs(List<Song> songs) {
+//        this.songs = songs;
+//    }
 }
