@@ -1,6 +1,24 @@
 package com.codegym.model;
 
 public class FormSong {
+    private String idSong;
+
+    public FormSong(String idSong, String nameSong, String infoSong, String dateSong, String likeSong, String listenSong, String downloadSong, String commendSong, String category, String author, String singer, String album, String idUser) {
+        this.idSong = idSong;
+        this.nameSong = nameSong;
+        this.infoSong = infoSong;
+        this.dateSong = dateSong;
+        this.likeSong = likeSong;
+        this.listenSong = listenSong;
+        this.downloadSong = downloadSong;
+        this.commendSong = commendSong;
+        this.category = category;
+        this.author = author;
+        this.singer = singer;
+        this.album = album;
+        this.idUser = idUser;
+    }
+
     private String nameSong;
     private String infoSong;
     private String dateSong;
@@ -35,6 +53,14 @@ public class FormSong {
 
     public void setIdUser(String idUser) {
         this.idUser = idUser;
+    }
+
+    public String getIdSong() {
+        return idSong;
+    }
+
+    public void setIdSong(String idSong) {
+        this.idSong = idSong;
     }
 
     public FormSong() {
