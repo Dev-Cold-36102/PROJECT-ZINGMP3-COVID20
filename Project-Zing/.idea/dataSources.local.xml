@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="dataSourceStorageLocal">
-    <data-source name="PROJECT_ZING@localhost" uuid="0cd64bea-1854-45bc-9d4e-12a330c04771">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <schema-mapping />
-    </data-source>
-  </component>
-</project>
