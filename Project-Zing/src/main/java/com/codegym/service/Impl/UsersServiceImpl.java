@@ -28,6 +28,12 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public List<Users> findAll() {
+        List<Users> usersList =(List<Users>) usersRepository.findAll();
+        return null;
+    }
+
+    @Override
     public Users findById(Long id) {
         Users user = usersRepository.findOne(id);
         return user;
@@ -54,6 +60,11 @@ public class UsersServiceImpl implements UsersService {
             }
         }
         return null;
+    }
+
+    @Override
+    public Users findByEmail(String email) {
+        return usersRepository.findUsersByEmail(email);
     }
 
 //    @Override

@@ -1,8 +1,6 @@
 package com.codegym.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Entity
 @Table(name = "singers")
@@ -10,14 +8,11 @@ public class Singer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idSinger;
-    @NotEmpty
     private String nameSinger;
-    @NotEmpty
     private String infoSinger;
-    @NotEmpty
     private String imageSinger;
 
-//    @OneToMany(targetEntity = Song.class)
+//    @OneToMany(targetEntity = Song.class,fetch = FetchType.EAGER)
 //    private List<Song> songs;
 
     public Singer() {

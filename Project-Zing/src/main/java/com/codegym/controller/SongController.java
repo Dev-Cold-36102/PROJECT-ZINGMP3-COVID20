@@ -13,7 +13,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.xml.ws.Response;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -79,7 +78,7 @@ public class SongController {
     @GetMapping("/api/album")
     @ResponseBody
     public List<Album> getAllAlbum() {
-        List<Album> albums = this.albumService.getAllAlbum();
+        List<Album> albums =(List<Album>) this.albumService.getAllAlbum();
         return albums;
     }
 
