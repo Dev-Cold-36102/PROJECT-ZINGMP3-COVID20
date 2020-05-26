@@ -1,6 +1,5 @@
 package com.codegym.service.Impl;
 
-import com.codegym.model.FromPlaylist;
 import com.codegym.model.Playlist;
 import com.codegym.model.Users;
 import com.codegym.repository.PlaylistRepository;
@@ -20,9 +19,10 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public FromPlaylist findById(Long id) {
+    public Playlist findById(Long id) {
         return playlistRepository.findOne(id);
     }
+
 
     @Override
     public List<Playlist> findAllByUser(Users users) {
@@ -35,7 +35,9 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public void remove(Long id) {
-        playlistRepository.delete(id);
+    public void remove(Playlist playlist) {
+        playlistRepository.delete(playlist);
     }
+
+
 }
