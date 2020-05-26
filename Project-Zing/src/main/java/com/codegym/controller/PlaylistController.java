@@ -89,7 +89,7 @@ public class PlaylistController {
     public ResponseEntity<List<Playlist>> getPlayListByUser(@RequestBody Long id){
         Users users = usersService.findById(id);
         System.out.println(id);
-        System.out.println(users.getId());
+        System.out.println(users.getIdUser());
         List<Playlist>playlists=playlistService.findAllByUser(users);
         return new ResponseEntity<>(playlists, HttpStatus.OK);
     }
@@ -128,13 +128,13 @@ public class PlaylistController {
     @PutMapping("/update-playlist/{id}")
     public ResponseEntity<Void> updatePlayList(@PathVariable Long id, @RequestBody FromPlaylist fromPlaylist,
                                                @RequestPart(value = "image") MultipartFile imagePlaylist) throws ParseException {
-        FromPlaylist fromPlaylistUpdate = playlistService.findById(id);
+        Playlist fromPlaylistUpdate = playlistService.findById(id);
 
 
 
         String imageUpload = environment.getProperty("image_upload_playlist").toString();
         String imageName = imagePlaylist.getOriginalFilename();
-        fromPlaylistUpdate.setDate(fromPlaylist.getDate());
+        fromPlaylistUpdate.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(fromPlaylist.getDate()));
         fromPlaylistUpdate.setName(fromPlaylist.getName());
         fromPlaylistUpdate.setDescription(fromPlaylist.getDescription());
         Users users = usersService.findByUserName(fromPlaylist.getUsers());
@@ -151,7 +151,8 @@ public class PlaylistController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletePlaylist(@PathVariable Long id){
-        playlistService.remove(id);
+        Playlist playlist=this.playlistService.findById(id);
+        playlistService.remove(playlist);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

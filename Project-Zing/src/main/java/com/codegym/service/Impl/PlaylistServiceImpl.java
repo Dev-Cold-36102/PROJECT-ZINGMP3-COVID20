@@ -20,7 +20,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public FromPlaylist findById(Long id) {
+    public Playlist findById(Long id) {
         return playlistRepository.findOne(id);
     }
 
@@ -35,7 +35,8 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public void remove(Long id) {
-        playlistRepository.delete(id);
+    public void remove(Playlist playlist) {
+        playlistRepository.delete(playlist);
     }
+
 }
