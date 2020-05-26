@@ -100,7 +100,7 @@ public class SongController {
 
     @PostMapping(value = "/create-song", consumes = "multipart/form-data")
     @ResponseBody
-    public ResponseEntity<?> addPost(@RequestPart(value = "imageSong") MultipartFile fileImage, @RequestPart(value = "linkSong") MultipartFile fileAudio
+    public ResponseEntity<?> addSong(@RequestPart(value = "imageSong") MultipartFile fileImage, @RequestPart(value = "linkSong") MultipartFile fileAudio
             , @ModelAttribute FormSong formSong) {
         String imageName = fileImage.getOriginalFilename();
         String audioName = fileAudio.getOriginalFilename();
@@ -124,23 +124,73 @@ public class SongController {
         Song song = null;
         try {
             song = new Song(formSong.getNameSong(), formSong.getInfoSong(), imageName
-                    , new SimpleDateFormat("dd-MM-yyyy").parse(formSong.getDateSong()), Long.parseLong(formSong.getLikeSong()),
+                    , new SimpleDateFormat("yyy-dd-MM").parse(formSong.getDateSong()), Long.parseLong(formSong.getLikeSong()),
                     Long.parseLong(formSong.getListenSong()), Long.parseLong(formSong.getDownloadSong()),
                     formSong.getCommendSong(), formSong.getCategory(), formSong.getAuthor(), audioName, singer, album, users);
+
+            System.out.println(song.getDateSong());
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         this.songService.save(song);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping(value = "/edit-song", consumes = "multipart/form-data")
+    @ResponseBody
+    public ResponseEntity<?> saveSong(@RequestPart(value = "imageSong") MultipartFile fileImage, @RequestPart(value = "linkSong") MultipartFile fileAudio
+            , @ModelAttribute FormSong formSong) {
+        String imageName = fileImage.getOriginalFilename();
+        String audioName = fileAudio.getOriginalFilename();
+        String imageUpload = environment.getProperty("image_upload").toString();
+        String audioUpload = environment.getProperty("audio_upload").toString();
+        try {
+            FileCopyUtils.copy(fileImage.getBytes(), new File(imageUpload + imageName));
+            FileCopyUtils.copy(fileAudio.getBytes(), new File(audioUpload + audioName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Singer singer = this.singerService.findSingerByName(formSong.getSinger().toString());
+        Album album = this.albumService.findAlbumByName(formSong.getAlbum());
+        Users users = this.usersService.findById(Long.parseLong(formSong.getIdUser()));
+        if (singer == null || album == null) {
+            System.out.println("null");
+            return new ResponseEntity<Error>(HttpStatus.BAD_REQUEST);
+        }
+
+        Song song = null;
+        try {
+            song = new Song(Long.parseLong(formSong.getIdSong()), formSong.getNameSong(), formSong.getInfoSong(), imageName
+                    , new SimpleDateFormat("yyy-dd-MM").parse(formSong.getDateSong()), Long.parseLong(formSong.getLikeSong()),
+                    Long.parseLong(formSong.getListenSong()), Long.parseLong(formSong.getDownloadSong()),
+                    formSong.getCommendSong(), formSong.getCategory(), formSong.getAuthor(), audioName, singer, album, users);
+
+            System.out.println(song.getDateSong());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        this.songService.save(song);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/user-song")
     @ResponseBody
     public ResponseEntity<List<Song>> editSong(@RequestBody String idUser) {
         Users user = this.usersService.findById(Long.parseLong(idUser));
         List<Song> songList = this.songService.findAllSongByIdUser(user);
-        System.out.println(songList.size());
         return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delete-song")
+    @ResponseBody
+    public ResponseEntity<?> deleteSong(@RequestBody String idSong) {
+        this.songService.remove(Long.parseLong(idSong));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
