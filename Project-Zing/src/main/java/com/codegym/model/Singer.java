@@ -1,10 +1,6 @@
 package com.codegym.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Entity
 @Table(name = "singers")
@@ -16,8 +12,8 @@ public class Singer {
     private String infoSinger;
     private String imageSinger;
 
-    @OneToMany(targetEntity = Song.class,fetch = FetchType.EAGER)
-    private List<Song> songs;
+//    @OneToMany(targetEntity = Song.class,fetch = FetchType.EAGER)
+//    private List<Song> songs;
 
     public Singer() {
     }
@@ -61,11 +57,11 @@ public class Singer {
         this.imageSinger = imageSinger;
     }
 
-    public List<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
-    }
+//    public List<Song> getSongs() {
+//        return songs;
+//    }
+//
+//    public void setSongs(List<Song> songs) {
+//        this.songs = songs;
+//    }
 }

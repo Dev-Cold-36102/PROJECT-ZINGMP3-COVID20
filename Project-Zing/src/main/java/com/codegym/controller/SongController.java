@@ -77,7 +77,7 @@ public class SongController {
     @GetMapping("/api/album")
     @ResponseBody
     public List<Album> getAllAlbum() {
-        List<Album> albums = this.albumService.getAllAlbum();
+        List<Album> albums =(List<Album>) this.albumService.getAllAlbum();
         return albums;
     }
 
